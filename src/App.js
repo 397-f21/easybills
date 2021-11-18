@@ -30,7 +30,7 @@ function App() {
   }
 
   const calculateTotal = () => {
-    result = (totalBill / numPeople * (1 + tip)).toString();
+    result = (totalBill / numPeople * (1 + tip)).toFixed(2); 
     setEvenResult(result);
   }
 
