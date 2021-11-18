@@ -4,16 +4,14 @@ import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
+// const total_amount = 100;
+// const people_amount = 3;
+// const dish1 = 25;
+// const dish2 = 50;
+// const dish3 = 25;
 
-
-const total_amount = 100;
-const people_amount = 3;
-const dish1 = 25;
-const dish2 = 50;
-const dish3 = 25;
-
-const tip = total_amount * 0.20;
-const user1 = dish1 / total_amount * tip + dish1;
+// const tip = total_amount * 0.20;
+// const user1 = dish1 / total_amount * tip + dish1;
 
 // your share = (total+tip) / menu total * what you ordered
 let result = "Test result";
@@ -29,6 +27,17 @@ function App() {
   const handleChange = (event, value) => {
     setPage(value);
   };
+
+  const [inputList, setInputList] = useState([]);
+  const onAddBtnClick = event => {
+    setInputList(inputList.concat(<AddRow key={inputList.length} />));
+  };
+
+  const AddRow = () => {
+    return (
+      <input type="text" class="form-control" id="individual" onChange={(e) => changeTotalBill(e)} />
+    )
+  }
 
   const changeTotalBill = (e) => {
     setTotalBill(e.target.value);
@@ -76,13 +85,23 @@ function App() {
           <label for="numPeople">Number of People</label>
           <input type="text" class="form-control" id="numPeople" placeholder="Enter total number of people" onChange={(e) => changeNumPeople(e)}></input>
         </div>
+        
+        <Stack spacing={2}>
+          <div className=" form-group">
+          <label for="individual">Enter the menu prices of what person {page} ordered (without taxes)</label>
+          <div className="center">
+            <button className="btn btn-primary" onClick={onAddBtnClick}>Add an item</button>
+          {inputList}
+          </div>
+          <label for="individual">Name:</label>
+          <input type="text" class="form-control" id="individual" onChange={(e) => changeTotalBill(e)}></input>
+          <Typography>Person: {page}</Typography>
+          <Pagination count={numPeople} page={page} onChange={handleChange} />
+          </div>
+        </Stack>
         <div className="center">
           <button className="btn btn-primary" onClick={calculateTotal}>Calculate</button>
         </div>
-        <Stack spacing={2}>
-          <Typography>Person: {page}</Typography>
-          <Pagination count={numPeople} page={page} onChange={handleChange} />
-        </Stack>
         <div className="form-group center">
           <h2>Your total cost after tip is: {`$${totalwtip}`}</h2>
           <h2>Each Person Should Pay: {`$${evenResult}`}</h2>
