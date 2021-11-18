@@ -1,6 +1,9 @@
-
 import './App.css';
 import React, { useState } from 'react';
+import Typography from '@mui/material/Typography';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
 
 
 const total_amount = 100;
@@ -14,12 +17,18 @@ const user1 = dish1 / total_amount * tip + dish1;
 
 // your share = (total+tip) / menu total * what you ordered
 let result = "Test result";
+let total;
 
 function App() {
   const [totalBill, setTotalBill] = useState(0);
   const [numPeople, setNumPeople] = useState(1);
+  const [totalwtip, setTotalwTip] = useState(0);
   const [evenResult, setEvenResult] = useState(0);
   const [tip, setTip] = useState(0);
+  const [page, setPage] = useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
 
   const changeTotalBill = (e) => {
     setTotalBill(e.target.value);
@@ -30,7 +39,9 @@ function App() {
   }
 
   const calculateTotal = () => {
-    result = (totalBill / numPeople * (1 + tip)).toFixed(2); 
+    total = (totalBill * (1 + tip)).toFixed(2);
+    result = (total / numPeople).toFixed(2); 
+    setTotalwTip(total);
     setEvenResult(result);
   }
 
@@ -68,7 +79,12 @@ function App() {
         <div className="center">
           <button className="btn btn-primary" onClick={calculateTotal}>Calculate</button>
         </div>
+        <Stack spacing={2}>
+          <Typography>Person: {page}</Typography>
+          <Pagination count={numPeople} page={page} onChange={handleChange} />
+        </Stack>
         <div className="form-group center">
+          <h2>Your total cost after tip is: {`$${totalwtip}`}</h2>
           <h2>Each Person Should Pay: {`$${evenResult}`}</h2>
         </div>
       </div>
