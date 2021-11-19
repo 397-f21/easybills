@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import NameInput from './components/NameInput';
+import ItemInput from './components/ItemInput';
 
 
 // const total_amount = 100;
@@ -28,16 +29,17 @@ function App() {
   const [page, setPage] = useState(1);
 
   const [names, setNames] = useState([]); 
+  const [items, setItems] = useState([]); 
   const [buttonPressed, setButtonPressed] = useState(false);
 
   const handleChange = (event, value) => {
     setPage(value);
   };
 
-  const [inputList, setInputList] = useState([]);
-  const onAddBtnClick = event => {
-    setInputList(inputList.concat(<AddRow key={inputList.length} />));
-  };
+  // const [inputList, setInputList] = useState([]);
+  // const onAddBtnClick = event => {
+  //   setInputList(inputList.concat(<AddRow key={inputList.length} />));
+  // };
 
   const AddRow = () => {
     return (
@@ -96,10 +98,11 @@ function App() {
         <Stack spacing={2}>
           <div className=" form-group">
           <label for="individual">Enter the menu prices of what person {page} ordered (without taxes)</label>
-          <div className="center">
+          {/* <div className="center">
             <button className="btn btn-primary" onClick={onAddBtnClick}>Add an item</button>
           {inputList}
-          </div>
+          </div> */}
+          <ItemInput items={items} setItems={setItems} buttonPressed={buttonPressed}/>
           <label for="individual">Name:</label>
           <input type="text" class="form-control" id="individual" onChange={(e) => changeTotalBill(e)}></input>
           <Typography>Person: {page}</Typography>
