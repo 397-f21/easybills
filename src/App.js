@@ -89,25 +89,24 @@ function App() {
             <option value=".20">20%</option>
           </select>
         </div>
-        <NameInput names={names} setNames={setNames} buttonPressed={buttonPressed}/>
+        
         <div className="form-group">
           <label for="numPeople">Number of People</label>
           <input type="text" class="form-control" id="numPeople" placeholder="Enter total number of people" onChange={(e) => changeNumPeople(e)}></input>
         </div>
-        
+        <NameInput names={names} setNames={setNames} buttonPressed={buttonPressed}/>
+
         <Stack spacing={2}>
-          <div className=" form-group">
-          <label for="individual">Enter the menu prices of what person {page} ordered (without taxes)</label>
+          
           {/* <div className="center">
             <button className="btn btn-primary" onClick={onAddBtnClick}>Add an item</button>
           {inputList}
-          </div> */}
-          <ItemInput items={items} setItems={setItems} buttonPressed={buttonPressed}/>
-          <label for="individual">Name:</label>
-          <input type="text" class="form-control" id="individual" onChange={(e) => changeTotalBill(e)}></input>
+           */}
+          <ItemInput names={names} items={items} setItems={setItems} buttonPressed={buttonPressed}/>
+          
           <Typography>Person: {page}</Typography>
           <Pagination count={numPeople} page={page} onChange={handleChange} />
-          </div>
+          
         </Stack>
         <div className="center">
           <button className="btn btn-primary" onClick={calculateTotal}>Calculate</button>

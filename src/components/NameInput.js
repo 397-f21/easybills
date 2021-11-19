@@ -36,7 +36,15 @@ const NameInput = ({ names, setNames, buttonPressed }) => {
       }
 
     return (
-        <> {(!buttonPressed) &&
+        <> 
+        <div>
+                {(!buttonPressed) && <h5>Please Enter Names:</h5>}
+                <div id="name-entry">
+                {!(buttonPressed) && <input id="nameSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Sam" onChange={e => changeHandler(e.target.value)}></input>}
+                {!(buttonPressed) && <a  href="#" className="button" ref={inputRef} onClick={() => addName(input, setNames)}>Add Name</a>}                
+                </div>
+            </div>
+        {(!buttonPressed) &&
             < div className="names-list">
             <ol>
                 {names.map((name, key) =>
@@ -50,13 +58,7 @@ const NameInput = ({ names, setNames, buttonPressed }) => {
             </ol>
         </div>
         }
-            <div>
-                {(!buttonPressed) && <h2>Please Enter Contestants' Names:</h2>}
-                <div id="name-entry">
-                {!(buttonPressed) && <input id="nameSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Sam" onChange={e => changeHandler(e.target.value)}></input>}
-                {!(buttonPressed) && <a  href="#" className="button" ref={inputRef} onClick={() => addName(input, setNames)}>Add Name</a>}                
-                </div>
-            </div>
+            
         </>
     );
 };

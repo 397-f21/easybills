@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import NameDropdown from './NameDropdown/NameDropdown.js'
+import NameDropdown from './NameDropdown.js'
 
 import '../index.css';
 
@@ -14,7 +14,7 @@ const addItem = (input, setItems) => {  //name is a str
     }
 }
 
-const ItemInput = ({ items, setItems, buttonPressed }) => {
+const ItemInput = ({ names, items, setItems, buttonPressed }) => {
     const [input, updateInput] = useState('');
 
     const changeHandler = txt => {
@@ -37,7 +37,15 @@ const ItemInput = ({ items, setItems, buttonPressed }) => {
       }
 
     return (
-        <> {(!buttonPressed) &&
+        <> 
+        <div>
+                {(!buttonPressed) && <h5>Please Enter Each item's Price (shown on the bill without taxes):</h5>}
+                <div id="item-entry">
+                {!(buttonPressed) && <input id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="10.00" onChange={e => changeHandler(e.target.value)}></input>}
+                {!(buttonPressed) && <a  href="#" className="button" ref={inputRef} onClick={() => addItem(input, setItems)}>Add Item</a>}                
+                </div>
+            </div>
+        {(!buttonPressed) &&
             < div className="names-list">
             <ol>
                 {items.map((item, key) =>
@@ -46,19 +54,13 @@ const ItemInput = ({ items, setItems, buttonPressed }) => {
                         <a href="#" className="flex-item" onClick={() => deleteItem(key, setItems)}>
                             <FontAwesomeIcon icon={faTrashAlt} />
                         </a>
-                        <NameDropdown></NameDropdown>
+                        <NameDropdown names={names}></NameDropdown>
                     </li> 
                 )}
             </ol>
         </div>
         }
-            <div>
-                {(!buttonPressed) && <h2>Please Enter Order Prices:</h2>}
-                <div id="item-entry">
-                {!(buttonPressed) && <input id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="10.00" onChange={e => changeHandler(e.target.value)}></input>}
-                {!(buttonPressed) && <a  href="#" className="button" ref={inputRef} onClick={() => addItem(input, setItems)}>Add Item</a>}                
-                </div>
-            </div>
+            
         </>
     );
 };
