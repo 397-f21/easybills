@@ -5,6 +5,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import NameInput from './components/NameInput';
 
+
 // const total_amount = 100;
 // const people_amount = 3;
 // const dish1 = 25;
