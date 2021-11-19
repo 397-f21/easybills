@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import NameInput from './components/NameInput';
 
 // const total_amount = 100;
 // const people_amount = 3;
@@ -24,6 +25,10 @@ function App() {
   const [evenResult, setEvenResult] = useState(0);
   const [tip, setTip] = useState(0);
   const [page, setPage] = useState(1);
+
+  const [names, setNames] = useState([]); 
+  const [buttonPressed, setButtonPressed] = useState(false);
+
   const handleChange = (event, value) => {
     setPage(value);
   };
@@ -81,6 +86,7 @@ function App() {
             <option value=".20">20%</option>
           </select>
         </div>
+        <NameInput names={names} setNames={setNames} buttonPressed={buttonPressed}/>
         <div className="form-group">
           <label for="numPeople">Number of People</label>
           <input type="text" class="form-control" id="numPeople" placeholder="Enter total number of people" onChange={(e) => changeNumPeople(e)}></input>
