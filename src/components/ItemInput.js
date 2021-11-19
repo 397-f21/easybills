@@ -5,19 +5,24 @@ import NameDropdown from './NameDropdown.js'
 
 import '../index.css';
 
-const addItem = (input, setItems) => {  //name is a str
-    if (!input.trim()) {
-        alert('Please enter an item');
+const addItemPrice = (itemInput, priceInput, setItems) => {  //name is a str
+    if (!itemInput.trim() && !priceInput.trim()) {
+        alert('Please enter the name of the item and its price');
+    } else if (!itemInput.trim()) {
+        alert('Please enter the name of the item');
+    } else if (!priceInput.trim()) {
+        alert('Please enter a price');
     } else {
-        setItems(items => [...items, input]);
+        setItems(items => [...items, {'name': itemInput, 'price': priceInput}]);
         document.getElementById("nameSubmit").value = ''; //Make sure to add an item submit element ID
     }
 }
 
 const ItemInput = ({ names, items, setItems, buttonPressed }) => {
-    const [input, updateInput] = useState('');
+    const [itemInput, updateItemInput] = useState('');
+    const [priceInput, updatePriceInput] = useState('');
 
-    const changeHandler = txt => {
+    const changeHandler = (txt, updateInput) => {
         updateInput(txt);
     }
 
@@ -41,8 +46,9 @@ const ItemInput = ({ names, items, setItems, buttonPressed }) => {
         <div>
                 {(!buttonPressed) && <h5>Please Enter Each item's Price (shown on the bill without taxes):</h5>}
                 <div id="item-entry">
-                {!(buttonPressed) && <input id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="10.00" onChange={e => changeHandler(e.target.value)}></input>}
-                {!(buttonPressed) && <a  href="#" className="button" ref={inputRef} onClick={() => addItem(input, setItems)}>Add Item</a>}                
+                {!(buttonPressed) && <input id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Chicken Sandwich" onChange={e => changeHandler(e.target.value, updateItemInput)}></input>}
+                {!(buttonPressed) && <input id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="10.00" onChange={e => changeHandler(e.target.value, updatePriceInput)}></input>}
+                {!(buttonPressed) && <a  href="#" className="button" ref={inputRef} onClick={() => addItemPrice(itemInput, priceInput, setItems)}>Add Item</a>}                
                 </div>
             </div>
         {(!buttonPressed) &&
@@ -50,11 +56,12 @@ const ItemInput = ({ names, items, setItems, buttonPressed }) => {
             <ol>
                 {items.map((item, key) =>
                     <li className="flex-container" key={key}>
-                        <div className="item">{item}</div>
+                        <div className="item">{item.name}</div>
+                        <div className="item">{item.price}</div>
+                        <NameDropdown names={names}></NameDropdown>
                         <a href="#" className="flex-item" onClick={() => deleteItem(key, setItems)}>
                             <FontAwesomeIcon icon={faTrashAlt} />
                         </a>
-                        <NameDropdown names={names}></NameDropdown>
                     </li> 
                 )}
             </ol>

@@ -72,11 +72,21 @@ function App() {
         <div className="center">
           <h1>Easybills</h1>
         </div>
-        <div className="form-group">
+        
+        {/* <div className="form-group">
+          <label for="numPeople">Number of People</label>
+          <input type="text" class="form-control" id="numPeople" placeholder="Enter total number of people" onChange={(e) => changeNumPeople(e)}></input>
+        </div> */}
+        <NameInput names={names} setNames={setNames} buttonPressed={buttonPressed}/>
+
+        <ItemInput names={names} items={items} setItems={setItems} buttonPressed={buttonPressed}/>
+
+        {/* <div className="form-group">
           <label for="billAmt">Total Bill (after taxes, without Tip)</label>
           <input type="text" class="form-control" id="billAmt" placeholder="Enter total bill" onChange={(e) => changeTotalBill(e)}></input>
           <small id="emailHelp" class="form-text text-muted">For splitting evenly, enter the total bill including tip.</small>
-        </div>
+        </div> */}
+
         <div className="form-group">
           <label>Tip Amount</label>
           <select className="form-select" onChange={e => handleTipChange(e)}>
@@ -89,12 +99,6 @@ function App() {
             <option value=".20">20%</option>
           </select>
         </div>
-        
-        <div className="form-group">
-          <label for="numPeople">Number of People</label>
-          <input type="text" class="form-control" id="numPeople" placeholder="Enter total number of people" onChange={(e) => changeNumPeople(e)}></input>
-        </div>
-        <NameInput names={names} setNames={setNames} buttonPressed={buttonPressed}/>
 
         <Stack spacing={2}>
           
@@ -102,10 +106,10 @@ function App() {
             <button className="btn btn-primary" onClick={onAddBtnClick}>Add an item</button>
           {inputList}
            */}
-          <ItemInput names={names} items={items} setItems={setItems} buttonPressed={buttonPressed}/>
           
-          <Typography>Person: {page}</Typography>
-          <Pagination count={numPeople} page={page} onChange={handleChange} />
+          
+          {/* <Typography>Person: {page}</Typography>
+          <Pagination count={numPeople} page={page} onChange={handleChange} /> */}
           
         </Stack>
         <div className="center">
