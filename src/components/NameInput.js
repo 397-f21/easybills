@@ -40,8 +40,8 @@ const NameInput = ({ names, setNames, buttonPressed }) => {
         <div>
                 {(!buttonPressed) && <h5>Please Enter Names:</h5>}
                 <div id="name-entry">
-                {!(buttonPressed) && <input id="nameSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Sam" onChange={e => changeHandler(e.target.value)}></input>}
-                {!(buttonPressed) && <a  href="#" className="button" ref={inputRef} onClick={() => addName(input, setNames)}>Add Name</a>}                
+                {!(buttonPressed) && <input className="form-control" id="nameSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Sam" onChange={e => changeHandler(e.target.value)}></input>}
+                {!(buttonPressed) && <button class="btn btn-primary" ref={inputRef} onClick={() => addName(input, setNames)}>Add Name</button>}                
                 </div>
             </div>
         {(!buttonPressed) &&

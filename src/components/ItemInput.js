@@ -46,9 +46,9 @@ const ItemInput = ({ names, items, setItems, buttonPressed }) => {
         <div>
                 {(!buttonPressed) && <h5>Please Enter Each item's Price (shown on the bill without taxes):</h5>}
                 <div id="item-entry">
-                {!(buttonPressed) && <input id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Chicken Sandwich" onChange={e => changeHandler(e.target.value, updateItemInput)}></input>}
-                {!(buttonPressed) && <input id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="10.00" onChange={e => changeHandler(e.target.value, updatePriceInput)}></input>}
-                {!(buttonPressed) && <a  href="#" className="button" ref={inputRef} onClick={() => addItemPrice(itemInput, priceInput, setItems)}>Add Item</a>}                
+                {!(buttonPressed) && <input className="form-control" id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Chicken Sandwich" onChange={e => changeHandler(e.target.value, updateItemInput)}></input>}
+                {!(buttonPressed) && <input className="form-control" id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="10.00" onChange={e => changeHandler(e.target.value, updatePriceInput)}></input>}
+                {!(buttonPressed) && <button className="btn btn-primary" ref={inputRef} onClick={() => addItemPrice(itemInput, priceInput, setItems)}>Add Item</button>}                
                 </div>
             </div>
         {(!buttonPressed) &&
