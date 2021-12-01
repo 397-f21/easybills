@@ -17,6 +17,8 @@ const addItemPrice = (itemInput, priceInput, personInput, setItems) => {  //name
     } else {
         setItems(items => [...items, { 'name': itemInput, 'price': priceInput, 'owner': personInput }]);
         console.log("person input: " + personInput);
+        document.getElementById("itemNameSubmit").value = '';
+        document.getElementById("itemPriceSubmit").value = '';
         document.getElementById("nameSubmit").value = ''; //Make sure to add an item submit element ID
     }
 }
@@ -55,8 +57,8 @@ const ItemInput = ({ names, items, setItems, buttonPressed }) => {
         <div>
                 {(!buttonPressed) && <h5>Please Enter Each item's Price (shown on the bill without taxes):</h5>}
                 <div id="item-entry">
-                {!(buttonPressed) && <input className="form-control" id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Chicken Sandwich" onChange={e => changeHandler(e.target.value, updateItemInput)}></input>}
-                {!(buttonPressed) && <input className="form-control" id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="10.00" onChange={e => changeHandler(e.target.value, updatePriceInput)}></input>}
+                {!(buttonPressed) && <input className="form-control" id="itemNameSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Chicken Sandwich" onChange={e => changeHandler(e.target.value, updateItemInput)}></input>}
+                {!(buttonPressed) && <input className="form-control" id="itemPriceSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="10.00" onChange={e => changeHandler(e.target.value, updatePriceInput)}></input>}
                 {!(buttonPressed) && <NameDropdown names={names} id="personInput" changePerson={changePerson} updatePersonInput={updatePersonInput}></NameDropdown>}    
                 {!(buttonPressed) && <button className="btn btn-primary" ref={inputRef} onClick={() => addItemPrice(itemInput, priceInput, personInput, setItems)}>Add Item</button>}                
                 </div>
