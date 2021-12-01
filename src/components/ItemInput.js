@@ -28,6 +28,11 @@ const ItemInput = ({ names, items, setItems, buttonPressed }) => {
         updateInput(txt);
     }
 
+    const changePerson = (txt, updateInput) => {
+        console.log("txt: " + txt);
+        updateInput(txt);
+    }
+
     const deleteItem = (id, setItems) => {
         console.log("ID: " + id);
         items.splice(id, 1);
@@ -50,7 +55,7 @@ const ItemInput = ({ names, items, setItems, buttonPressed }) => {
                 <div id="item-entry">
                 {!(buttonPressed) && <input className="form-control" id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Chicken Sandwich" onChange={e => changeHandler(e.target.value, updateItemInput)}></input>}
                 {!(buttonPressed) && <input className="form-control" id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="10.00" onChange={e => changeHandler(e.target.value, updatePriceInput)}></input>}
-                {!(buttonPressed) && <NameDropdown names={names} onChange={e => changeHandler(e.target.value, updatePersonInput)}></NameDropdown>}    
+                {!(buttonPressed) && <NameDropdown names={names} id="personInput" onChange={e => changePerson(e.target.value, updatePersonInput)}></NameDropdown>}    
                 {!(buttonPressed) && <button className="btn btn-primary" ref={inputRef} onClick={() => addItemPrice(itemInput, priceInput, personInput, setItems)}>Add Item</button>}                
                 </div>
             </div>
