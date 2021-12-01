@@ -75,6 +75,30 @@ function App() {
     setTip(e.target.value);
   }
 
+  const calculateByItem = (items) => {
+    console.log("calculating by item");
+    let dictionary = {}
+    let total = 0;
+    
+    for (let i = 0; i < items.length; i++){
+      let person = items[i].owner;
+      total += parseFloat(items[i].price);
+      if (!(person in dictionary)) {
+        dictionary[person] = parseFloat(items[i].price);
+      } else {
+        dictionary[person] += parseFloat(items[i].price);
+      }
+    }
+    let totalTip = total * tip;
+    console.log("total tip " + totalTip);
+
+    // go through dictionary and add tip for each person that's proportional to what they ate
+    console.log("here");
+    console.log("alex: " + dictionary["alex"]);
+    console.log("brian: " + dictionary["brian"]);
+
+  }
+
   return (
     <div className="easyBills">
       <div className="container">
@@ -122,7 +146,8 @@ function App() {
           
         </Stack>
         <div className="center">
-          <button className="btn btn-primary" onClick={calculateTotal}>Calculate</button>
+          <button className="btn btn-primary" onClick={calculateTotal}>Calculate Even Split</button>
+          <button className="btn btn-primary" onClick={calculateByItem(items)}>Calculate By Item</button>
         </div>
         <div className="form-group center">
           <h2>Your total cost after tip is: {`$${totalwtip}`}</h2>
