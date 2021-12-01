@@ -1,24 +1,11 @@
 import './App.css';
 import React, { useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Pagination from '@mui/material/Pagination';
+
 import Stack from '@mui/material/Stack';
 import NameInput from './components/NameInput';
 import ItemInput from './components/ItemInput';
+import { queryAllByDisplayValue } from '@testing-library/dom';
 
-
-// const total_amount = 100;
-// const people_amount = 3;
-// const dish1 = 25;
-// const dish2 = 50;
-// const dish3 = 25;
-
-// const tip = total_amount * 0.20;
-// const user1 = dish1 / total_amount * tip + dish1;
-
-// your share = (total+tip) / menu total * what you ordered
-let result = "Test result";
-let total;
 
 function App() {
   const [totalBill, setTotalBill] = useState(0);
@@ -26,37 +13,37 @@ function App() {
   const [totalwtip, setTotalwTip] = useState(0);
   const [evenResult, setEvenResult] = useState(0);
   const [tip, setTip] = useState(0);
-  const [page, setPage] = useState(1);
+  //const [page, setPage] = useState(1);
 
-  const [names, setNames] = useState([' ']); 
+  const [names, setNames] = useState([]); 
   const [items, setItems] = useState([]); 
   const [buttonPressed, setButtonPressed] = useState(false);
 
-  let dictionary = {};
+  let total;
+  let result;
+  // const makeDictionary = (dictionary, items) => {
+  //   items.map(item => {
+  //     dictionary[item.owner] += parseInt(item.price);
+  //   })
+  // };
 
-  const makeDictionary = (dictionary, items) => {
-    items.map(item => {
-      dictionary[item.owner] += parseInt(item.price);
-    })
-  };
+  // makeDictionary(dictionary, items);
+  // console.log("dictionary", dictionary);
 
-  makeDictionary(dictionary, items);
-  console.log("dictionary", dictionary);
-
-  const handleChange = (event, value) => {
-    setPage(value);
-  };
+  // const handleChange = (event, value) => {
+  //   setPage(value);
+  // };
 
   // const [inputList, setInputList] = useState([]);
   // const onAddBtnClick = event => {
   //   setInputList(inputList.concat(<AddRow key={inputList.length} />));
   // };
 
-  const AddRow = () => {
-    return (
-      <input type="text" className="form-control" id="individual" onChange={(e) => changeTotalBill(e)} />
-    )
-  }
+  // const AddRow = () => {
+  //   return (
+  //     <input type="text" className="form-control" id="individual" onChange={(e) => changeTotalBill(e)} />
+  //   )
+  // }
 
   const changeTotalBill = (e) => {
     setTotalBill(e.target.value);
@@ -68,46 +55,37 @@ function App() {
 
   const calculateTotal = () => {
     total = (totalBill * (1 + tip)).toFixed(2);
-    result = (total / numPeople).toFixed(2); 
     setTotalwTip(total);
-    setEvenResult(result);
-
-    // set totals split by items ordered
-    
-    console.log("names: " + names);
-    for (let i = 0; i < items.length; i++){
-      console.log(items[i]["name"]);
-      console.log(items[i]["price"]);
-    }
-    
   }
 
   const handleTipChange = (e) => {
     setTip(e.target.value);
   }
 
+  const calculateEven = () => {
+    result = (total / numPeople).toFixed(2); 
+    setEvenResult(result);
+  }
+
+//let numPeople;
+let dictionary = {};
   const calculateByItem = (items) => {
-    console.log("calculating by item");
-    let dictionary = {}
-    let total = 0;
-    
-    for (let i = 0; i < items.length; i++){
+    let totalwotax =0;
+    for (let i = 0; i < items.length; i++) {
       let person = items[i].owner;
-      total += parseFloat(items[i].price);
+      totalwotax += parseFloat(items[i].price);
       if (!(person in dictionary)) {
         dictionary[person] = parseFloat(items[i].price);
       } else {
         dictionary[person] += parseFloat(items[i].price);
       }
     }
-    let totalTip = total * tip;
-    console.log("total tip " + totalTip);
 
-    // go through dictionary and add tip for each person that's proportional to what they ate
-    console.log("here");
-    console.log("alex: " + dictionary["alex"]);
-    console.log("brian: " + dictionary["brian"]);
-
+    for (const key in dictionary) {
+      dictionary[key] = (dictionary[key]/totalwotax*total).toFixed(2);
+    }
+    //numPeople = Object.keys(dictionary).length;
+    console.log(dictionary)
   }
 
   return (
@@ -117,19 +95,18 @@ function App() {
           <h1>Easybills</h1>
         </div>
         
-        {/* <div className="form-group">
-          <label for="numPeople">Number of People</label>
+        <div className="form-group">
+          <label for="billAmt">Total Bill (after taxes, without Tip)</label>
+          <input type="text" class="form-control" id="billAmt" placeholder="Enter total bill" onChange={(e) => changeTotalBill(e)}></input>
+        </div>
+
+        <div className="form-group">
+          <label for="numPeople">Number of People dining</label>
           <input type="text" class="form-control" id="numPeople" placeholder="Enter total number of people" onChange={(e) => changeNumPeople(e)}></input>
-        </div> */}
+        </div>
         <NameInput names={names} setNames={setNames} buttonPressed={buttonPressed}/>
 
         <ItemInput names={names} items={items} setItems={setItems} buttonPressed={buttonPressed}/>
-
-        {/* <div className="form-group">
-          <label for="billAmt">Total Bill (after taxes, without Tip)</label>
-          <input type="text" class="form-control" id="billAmt" placeholder="Enter total bill" onChange={(e) => changeTotalBill(e)}></input>
-          <small id="emailHelp" class="form-text text-muted">For splitting evenly, enter the total bill including tip.</small>
-        </div> */}
 
         <div className="form-group">
           <label>Tip Amount</label>
@@ -157,12 +134,21 @@ function App() {
           
         </Stack>
         <div className="center">
-          <button className="btn btn-primary" onClick={calculateTotal}>Calculate Even Split</button>
-          <button className="btn btn-primary" onClick={calculateByItem(items)}>Calculate By Item</button>
+          <button className="btn btn-primary" onClick={() => {calculateTotal(); calculateEven()}}>Calculate Even Split</button>
+          <button className="btn btn-primary" onClick={() => {calculateTotal(); calculateByItem(items)}}>Calculate By Item</button>
         </div>
         <div className="form-group center">
           <h2>Your total cost after tip is: {`$${totalwtip}`}</h2>
-          <h2>Each Person Should Pay: {`$${evenResult}`}</h2>
+          
+          <ul>
+           {names.map(value => (
+             
+               <h2>{value} should pay {`$${dictionary[value]}`}</h2>
+             ))}
+         </ul>
+         
+            
+            
         </div>
       </div>
     </div>
@@ -170,14 +156,3 @@ function App() {
 }
 
 export default App;
-
-
-// dictionary for dishes and prices
-// chicken: 20
-
-// dictionary for dishes and people
-// chicken: [alex, brian] $20 --> +10
-// steak: [yufei]
-
-// dictionary for people and totals
-//alex: 10
