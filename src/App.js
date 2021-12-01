@@ -60,6 +60,15 @@ function App() {
     result = (total / numPeople).toFixed(2); 
     setTotalwTip(total);
     setEvenResult(result);
+
+    // set totals split by items ordered
+    
+    console.log("names: " + names);
+    for (let i = 0; i < items.length; i++){
+      console.log(items[i]["name"]);
+      console.log(items[i]["price"]);
+    }
+    
   }
 
   const handleTipChange = (e) => {
