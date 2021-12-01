@@ -28,7 +28,7 @@ function App() {
   const [tip, setTip] = useState(0);
   const [page, setPage] = useState(1);
 
-  const [names, setNames] = useState([]); 
+  const [names, setNames] = useState([' ']); 
   const [items, setItems] = useState([]); 
   const [buttonPressed, setButtonPressed] = useState(false);
 
@@ -43,7 +43,7 @@ function App() {
 
   const AddRow = () => {
     return (
-      <input type="text" class="form-control" id="individual" onChange={(e) => changeTotalBill(e)} />
+      <input type="text" className="form-control" id="individual" onChange={(e) => changeTotalBill(e)} />
     )
   }
 

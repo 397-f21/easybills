@@ -12,6 +12,8 @@ const addItemPrice = (itemInput, priceInput, personInput, setItems) => {  //name
         alert('Please enter the name of the item');
     } else if (!priceInput.trim()) {
         alert('Please enter a price');
+    } else if (!personInput.trim()) {
+        alert('Please assign a person to this item');
     } else {
         setItems(items => [...items, { 'name': itemInput, 'price': priceInput, 'owner': personInput }]);
         console.log("person input: " + personInput);
@@ -55,7 +57,7 @@ const ItemInput = ({ names, items, setItems, buttonPressed }) => {
                 <div id="item-entry">
                 {!(buttonPressed) && <input className="form-control" id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Chicken Sandwich" onChange={e => changeHandler(e.target.value, updateItemInput)}></input>}
                 {!(buttonPressed) && <input className="form-control" id="itemSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="10.00" onChange={e => changeHandler(e.target.value, updatePriceInput)}></input>}
-                {!(buttonPressed) && <NameDropdown names={names} id="personInput" onChange={e => changePerson(e.target.value, updatePersonInput)}></NameDropdown>}    
+                {!(buttonPressed) && <NameDropdown names={names} id="personInput" changePerson={changePerson} updatePersonInput={updatePersonInput}></NameDropdown>}    
                 {!(buttonPressed) && <button className="btn btn-primary" ref={inputRef} onClick={() => addItemPrice(itemInput, priceInput, personInput, setItems)}>Add Item</button>}                
                 </div>
             </div>
