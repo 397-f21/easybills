@@ -32,6 +32,17 @@ function App() {
   const [items, setItems] = useState([]); 
   const [buttonPressed, setButtonPressed] = useState(false);
 
+  let dictionary = {};
+
+  const makeDictionary = (dictionary, items) => {
+    items.map(item => {
+      dictionary[item.owner] += parseInt(item.price);
+    })
+  };
+
+  makeDictionary(dictionary, items);
+  console.log("dictionary", dictionary);
+
   const handleChange = (event, value) => {
     setPage(value);
   };
