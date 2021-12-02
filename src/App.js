@@ -15,9 +15,11 @@ function App() {
   const [tip, setTip] = useState(0);
   //const [page, setPage] = useState(1);
 
-  const [names, setNames] = useState([]); 
+  const [names, setNames] = useState([""]); 
   const [items, setItems] = useState([]); 
   const [buttonPressed, setButtonPressed] = useState(false);
+
+  const [dict, setDict] = useState({});
 
   let total;
   let result;
@@ -68,7 +70,7 @@ function App() {
   }
 
 //let numPeople;
-let dictionary = {};
+  let dictionary = {};
   const calculateByItem = (items) => {
     let totalwotax =0;
     for (let i = 0; i < items.length; i++) {
@@ -82,10 +84,19 @@ let dictionary = {};
     }
 
     for (const key in dictionary) {
-      dictionary[key] = (dictionary[key]/totalwotax*total).toFixed(2);
+      // console.log("tip amount total: " + tip*totalwotax);
+      // console.log("tip person is paying: " + (dictionary[key] / totalwotax) * tip*totalwotax);
+      // console.log("adding this: " + (dictionary[key] / totalwotax * total).toFixed(2));
+      dictionary[key] += (dictionary[key] / totalwotax) * tip*totalwotax;
     }
     //numPeople = Object.keys(dictionary).length;
-    console.log(dictionary)
+    // console.log("alex:" + dictionary["Alex"]);
+    // console.log("brian:" + dictionary["Brian"]);
+    setDict(dictionary);
+    for (const key in dictionary) {
+      console.log(key + " " + dict[key]);
+    }
+    
   }
 
   return (
@@ -143,7 +154,7 @@ let dictionary = {};
           <ul>
            {names.map(value => (
              
-               <h2>{value} should pay {`$${dictionary[value]}`}</h2>
+               <h2>{value} should pay {`$${dict[value]}`}</h2>
              ))}
          </ul>
          
