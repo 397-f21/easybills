@@ -37,28 +37,27 @@ const NameInput = ({ names, setNames, buttonPressed }) => {
 
     return (
         <> 
-        <div>
+            <div className="form-group">
                 {(!buttonPressed) && <h5>Please Enter Names:</h5>}
-                <div id="name-entry">
-                {!(buttonPressed) && <input className="form-control" id="nameSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Sam" onChange={e => changeHandler(e.target.value)}></input>}
-                {!(buttonPressed) && <button className="btn btn-primary" ref={inputRef} onClick={() => addName(input, setNames)}>Add Name</button>}                
+                <div className="input-group mb-3" id="name-entry">
+                    {!(buttonPressed) && <input className="form-control" id="nameSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Sam" onChange={e => changeHandler(e.target.value)} />}
+                    {!(buttonPressed) && <div className="input-group-append"><button className="btn btn-primary" ref={inputRef} onClick={() => addName(input, setNames)}>Add Name</button></div>}
                 </div>
             </div>
-        {(!buttonPressed) &&
-            < div className="names-list">
-            <ol>
-                {names.map((name, key) =>
-                    <li className="flex-container" key={key}>
-                        <div className="name">{name}</div>
-                        <a href="#" className="flex-item" onClick={() => deleteName(key, setNames)}>
-                            <FontAwesomeIcon icon={faTrashAlt} />
-                        </a>
-                    </li> 
-                )}
-            </ol>
-        </div>
-        }
-            
+            {(!buttonPressed) &&
+            <div className="names-list form-group">
+                <ol>
+                    {names.map((name, key) =>
+                        <li className="flex-container" key={key}>
+                            <div className="name">{name}</div>
+                            <a href="#" className="flex-item" onClick={() => deleteName(key, setNames)}>
+                                <FontAwesomeIcon icon={faTrashAlt} />
+                            </a>
+                        </li> 
+                    )}
+                </ol>
+            </div>
+            }    
         </>
     );
 };

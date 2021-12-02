@@ -54,33 +54,31 @@ const ItemInput = ({ names, items, setItems, buttonPressed }) => {
 
     return (
         <> 
-        <div>
-                {(!buttonPressed) && <h5>Please Enter Each item's Price (shown on the bill without taxes):</h5>}
-                <div id="item-entry">
-                {!(buttonPressed) && <input className="form-control" id="itemNameSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Chicken Sandwich" onChange={e => changeHandler(e.target.value, updateItemInput)}></input>}
-                {!(buttonPressed) && <input className="form-control" id="itemPriceSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="10.00" onChange={e => changeHandler(e.target.value, updatePriceInput)}></input>}
-                {!(buttonPressed) && <NameDropdown names={names} id="personInput" changePerson={changePerson} updatePersonInput={updatePersonInput}></NameDropdown>}    
-                {!(buttonPressed) && <button className="btn btn-primary" ref={inputRef} onClick={() => addItemPrice(itemInput, priceInput, personInput, setItems)}>Add Item</button>}                
+            <div className="form-group">
+                {(!buttonPressed) && <h5>Please Enter Each Item's Price (Without Taxes):</h5>}
+                <div className="input-group mb-3" id="item-entry">
+                    {!(buttonPressed) && <input className="form-control" id="itemNameSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="Chicken Sandwich" onChange={e => changeHandler(e.target.value, updateItemInput)}></input>}
+                    {!(buttonPressed) && <input className="form-control" id="itemPriceSubmit" type='text' onKeyDown={_handleKeyDown} placeholder="10.00" onChange={e => changeHandler(e.target.value, updatePriceInput)}></input>}
+                    {!(buttonPressed) && <NameDropdown names={names} id="personInput" changePerson={changePerson} updatePersonInput={updatePersonInput}></NameDropdown>}    
+                    {!(buttonPressed) && <div className="input-group-append"><button className="btn btn-primary" ref={inputRef} onClick={() => addItemPrice(itemInput, priceInput, personInput, setItems)}>Add Item</button></div>}
                 </div>
             </div>
-        {(!buttonPressed) &&
-            < div className="names-list">
-            <ol>
-                {items.map((item, key) =>
-                    <li className="flex-container" key={key}>
-                        <div className="item">{item.name}</div>
-                        <div className="item">{item.price}</div>
-                        <div className="item">{item.owner}</div>
-                        {/* <NameDropdown names={names}></NameDropdown> */}
-                        <a href="#" className="flex-item" onClick={() => deleteItem(key, setItems)}>
-                            <FontAwesomeIcon icon={faTrashAlt} />
-                        </a>
-                    </li> 
-                )}
-            </ol>
-        </div>
-        }
-            
+            {(!buttonPressed) &&
+                <div className="names-list form-group">
+                <ol>
+                    {items.map((item, key) =>
+                        <li className="flex-container" key={key}>
+                            <div className="item">{item.name}</div>
+                            <div className="item">{item.price}</div>
+                            <div className="item">{item.owner}</div>
+                            <a href="#" className="flex-item" onClick={() => deleteItem(key, setItems)}>
+                                <FontAwesomeIcon icon={faTrashAlt} />
+                            </a>
+                        </li> 
+                    )}
+                </ol>
+            </div>
+            }    
         </>
     );
 };

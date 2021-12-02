@@ -15,7 +15,7 @@ function App() {
   const [tip, setTip] = useState(0);
   //const [page, setPage] = useState(1);
 
-  const [names, setNames] = useState([""]); 
+  const [names, setNames] = useState([]); 
   const [items, setItems] = useState([]); 
   const [buttonPressed, setButtonPressed] = useState(false);
 
@@ -107,20 +107,26 @@ function App() {
         </div>
         
         <div className="form-group">
-          <label htmlFor="billAmt">Total Bill (after taxes, without Tip)</label>
+          <h5>
+            <label htmlFor="billAmt">Total Bill (after taxes, without Tip)</label>
+          </h5>
           <input type="text" className="form-control" id="billAmt" placeholder="Enter total bill" onChange={(e) => changeTotalBill(e)}></input>
         </div>
 
         <div className="form-group">
-          <label htmlFor="numPeople">Number of People dining</label>
+          <h5>
+            <label htmlFor="numPeople">Number of People in Party:</label>
+          </h5>
           <input type="text" className="form-control" id="numPeople" placeholder="Enter total number of people" onChange={(e) => changeNumPeople(e)}></input>
         </div>
-        <NameInput names={names} setNames={setNames} buttonPressed={buttonPressed}/>
 
+        <NameInput names={names} setNames={setNames} buttonPressed={buttonPressed}/>
         <ItemInput names={names} items={items} setItems={setItems} buttonPressed={buttonPressed}/>
 
         <div className="form-group">
-          <label>Tip Amount</label>
+          <h5>
+            <label>Tip Amount</label>
+          </h5>
           <select className="form-select" onChange={e => handleTipChange(e)}>
             <option defaultValue>Choose Tip Percentage (%)</option>
             <option value=".0">0%</option>
@@ -149,17 +155,12 @@ function App() {
           <button className="btn btn-primary" onClick={() => {calculateTotal(); calculateByItem(items)}}>Calculate By Item</button>
         </div>
         <div className="form-group center">
-          <h2>Your total cost after tip is: {`$${totalwtip}`}</h2>
-          
+          <h2>The total cost after tip is: {`$${totalwtip}`}</h2>
           <ul>
-           {names.map((value, key) => (
-             
-               <h2 key={key}>{value} should pay {`$${dict[value]}`}</h2>
-             ))}
-         </ul>
-         
-            
-            
+            {Object.keys(dict).length !== 0 && names.map((value, key) => (
+              <li key={key}>{value} should pay {`$${dict[value]}`}</li>
+            ))}
+          </ul>  
         </div>
       </div>
     </div>

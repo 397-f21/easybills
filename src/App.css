@@ -50,6 +50,10 @@
   text-align: center;
 }
 
+.center button {
+  margin: 10px;
+}
+
 .fa-trash-alt {
   color: black;
 }
@@ -80,4 +84,15 @@
   background-color: #efefef;
   color: black;
   text-decoration: none;
+}
+
+#itemPriceSubmit {
+  max-width: 100px;
+}
+
+ol, li {
+  font-size: 1.15em;
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
 }
