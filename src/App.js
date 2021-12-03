@@ -6,6 +6,24 @@ import NameInput from './components/NameInput';
 import ItemInput from './components/ItemInput';
 import { queryAllByDisplayValue } from '@testing-library/dom';
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAw6K_uNNkCRy42zaj2mzu8bXll9zEx2Mo",
+  authDomain: "cs497-purple-project3.firebaseapp.com",
+  projectId: "cs497-purple-project3",
+  storageBucket: "cs497-purple-project3.appspot.com",
+  messagingSenderId: "1070943312171",
+  appId: "1:1070943312171:web:cfcd86902178d64bcb0d6e"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
 
 function App() {
   const [totalBill, setTotalBill] = useState(0);
